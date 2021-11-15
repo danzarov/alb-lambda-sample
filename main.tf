@@ -85,6 +85,13 @@ resource "aws_lb_listener" "alb_listener" {
   }
 }
 
+### attaching target group to lambda function
+resource "aws_lb_target_group_attachment" "attach_tgtgroup_to_lambda" {
+  target_group_arn = aws_lb_target_group.target_group_lambda.arn
+  target_id        = aws_lambda_function.test_lambda.arn
+  depends_on       = [aws_lambda_permission.lb_lambda_permission]
+}
+
 ### lambda
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_lambda"
@@ -128,10 +135,4 @@ resource "aws_lambda_permission" "lb_lambda_permission" {
   function_name = aws_lambda_function.test_lambda.arn
   principal     = "elasticloadbalancing.amazonaws.com"
   source_arn    = aws_lb_target_group.target_group_lambda.arn
-}
-
-resource "aws_lb_target_group_attachment" "attach_tgtgroup_to_lambda" {
-  target_group_arn = aws_lb_target_group.target_group_lambda.arn
-  target_id        = aws_lambda_function.test_lambda.arn
-  depends_on       = [aws_lambda_permission.lb_lambda_permission]
 }
