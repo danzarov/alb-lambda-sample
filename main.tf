@@ -75,6 +75,7 @@ resource "aws_lb_target_group" "target_group_lambda" {
   target_type = "lambda"
 }
 
+### forwarding traffic from listener to target group
 resource "aws_lb_listener" "alb_listener" {
   load_balancer_arn = aws_lb.alb_sample.arn
   port              = "80"
