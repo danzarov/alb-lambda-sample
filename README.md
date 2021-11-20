@@ -12,3 +12,5 @@
  - build a load balancer (application)
  - build a listener for the load balancer (forwards traffic to the target group)
  - create an iam role for the lambda function and attach the policy `AWSLambdaBasicExecutionRole` to the role.
+
+ ![Image](images/ec2-lambda-sample.png?raw=true)
